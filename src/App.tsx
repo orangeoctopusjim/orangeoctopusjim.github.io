@@ -4,8 +4,14 @@ import './styles.css'
 
 import titleImage from './assets/title.png'
 import jimImage from './assets/jim.png'
-import icon1 from './assets/icons/facebook.svg'
-import icon2 from './assets/icons/instagram.svg'
+import appleMusic from './assets/icons/apple-music.svg'
+import facebook from './assets/icons/facebook.svg'
+import instagram from './assets/icons/instagram.svg'
+import soundcloud from './assets/icons/soundcloud.svg'
+import spotify from './assets/icons/spotify.svg'
+import youtube from './assets/icons/youtube.svg'
+
+import { MdMail } from 'react-icons/md'
 
 function App() {
   return (
@@ -32,32 +38,86 @@ function App() {
               alt="Jim"
             />
             <a
-              href="#link1" // Replace with the desired link
+              href="https://music.apple.com/ca/artist/orange-octopus-jim/1722913416"
+              target="_blank"
               className="absolute"
               style={{
-                top: '65%',
-                left: '30%',
+                top: '74%',
+                left: '72%',
                 transform: 'translate(-50%, -50%)',
               }}
             >
-              <img src={icon1} alt="Icon 1" />
+              <img src={appleMusic} alt="Apple Music" />
             </a>
             <a
-              href="#link2" // Replace with the desired link
+              href="https://www.facebook.com/profile.php?id=61554985387535"
+              target="_blank"
               className="absolute"
               style={{
-                top: '70%',
-                left: '60%',
+                top: '57%',
+                left: '25%',
                 transform: 'translate(-50%, -50%)',
               }}
             >
-              <img src={icon2} alt="Icon 2" />
+              <img src={facebook} alt="Facebook" />
             </a>
-            {/* Add more icons with appropriate links */}
+            <a
+              href="https://www.instagram.com/orangeoctopusjim"
+              target="_blank"
+              className="absolute"
+              style={{
+                top: '67%',
+                left: '35%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <img src={instagram} alt="Instagram" />
+            </a>
+            <a
+              href="https://soundcloud.com/orangeoctopusjim"
+              target="_blank"
+              className="absolute"
+              style={{
+                top: '85%',
+                left: '63%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <img src={soundcloud} alt="Soundcloud" />
+            </a>
+            <a
+              href="https://open.spotify.com/artist/4e7WxRPI3ysWogDPUsxTXv?si=VnTjwi65SHep8Y3sLZSHpA"
+              target="_blank"
+              className="absolute"
+              style={{
+                top: '72%',
+                left: '56%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <img src={spotify} alt="Spotify" />
+            </a>
+            <a
+              href="https://www.youtube.com/@orangeoctopusjim"
+              target="_blank"
+              className="absolute"
+              style={{
+                top: '75%',
+                left: '20%',
+                transform: 'translate(-50%, -50%)',
+              }}
+            >
+              <img src={youtube} alt="Youtube" />
+            </a>
           </div>
         </main>
         <footer className="flex justify-center items-center text-white h-[10%]">
-          Contact
+          <a href="mailto:ooj@orangeoctopusjim.ink">
+            <button className="bg-orange-600 text-white py-2 px-4 rounded-full flex flex-row gap-2 items-center">
+              <MdMail />
+              Contact
+            </button>
+          </a>
         </footer>
       </div>
     </div>
