@@ -1,17 +1,16 @@
 import { BackgroundCanvas } from './Background'
 
+import jimImage from './assets/jim.png'
+
 function App() {
   return (
-    <div className="bg-emerald-300 w-full h-full ">
-      <div className="w-full h-full absolute">
+    <div className="w-full h-full">
+      <div className="w-full h-full absolute z-0 m-0">
         <BackgroundCanvas />
       </div>
-      Welcome to Orange Octopus Jim's wonderful web wetsperience. Check out this
-      track:
-      <br />
-      <audio controls src="ladybug.m4a">
-        Spin
-      </audio>
+      <div className="w-full h-full flex absolute z-10 ">
+        <img className="" src={jimImage} />
+      </div>
     </div>
   )
 }
