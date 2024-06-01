@@ -1,5 +1,7 @@
 import { BackgroundCanvas } from './Background'
 
+import './styles.css'
+
 import titleImage from './assets/title.png'
 import jimImage from './assets/jim.png'
 import icon1 from './assets/icons/facebook.svg'
@@ -21,8 +23,8 @@ function App() {
         </header>
         <main className="flex justify-center items-center h-[75%] relative">
           <div
-            className="relative"
-            style={{ aspectRatio: '16/9', width: '100%' }}
+            className="relative aspect-ratio-container"
+            style={{ aspectRatio: '120/94' }}
           >
             <img
               className="absolute top-0 left-0 w-full h-full object-contain"

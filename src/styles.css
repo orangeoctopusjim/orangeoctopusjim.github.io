@@ -1,0 +1,11 @@
+.aspect-ratio-container {
+  width: 100%;
+  height: auto;
+}
+
+@media (min-aspect-ratio: 1/1) {
+  .aspect-ratio-container {
+    width: auto;
+    height: 100%;
+  }
+}
