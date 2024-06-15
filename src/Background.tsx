@@ -1,47 +1,43 @@
-import React, { useRef } from 'react'
+import React, { useMemo } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import * as THREE from 'three'
+import { ShaderMaterial, Vector2, OrthographicCamera } from 'three'
 
 import backgroundFrag from './shaders/background.frag'
 import vertexShader from './shaders/default.vert'
 
-const ShaderMaterial = () => {
-  const material = useRef<THREE.ShaderMaterial>(null!)
+const FullscreenPlane = () => {
+  const { size } = useThree()
+
+  const shaderMaterial = useMemo(() => {
+    return new ShaderMaterial({
+      uniforms: {
+        u_time: { value: 0.0 },
+        u_resolution: {
+          value: new Vector2(window.innerWidth, window.innerHeight),
+        },
+        intensity: { value: 0.0 },
+      },
+      vertexShader,
+      fragmentShader: backgroundFrag,
+    })
+  }, [])
+
   useFrame(({ clock }) => {
-    if (material.current) {
-      material.current.uniforms.u_time.value = clock.getElapsedTime()
+    if (shaderMaterial) {
+      shaderMaterial.uniforms.u_time.value = clock.getElapsedTime()
     }
   })
 
   return (
-    <shaderMaterial
-      ref={material}
-      uniforms={{
-        u_time: { value: 0.0 },
-        u_resolution: {
-          value: new THREE.Vector2(window.innerWidth, window.innerHeight),
-        },
-      }}
-      vertexShader={vertexShader}
-      fragmentShader={backgroundFrag}
-    />
-  )
-}
-
-const FullscreenPlane = () => {
-  const { size } = useThree()
-
-  return (
-    <mesh scale={[size.width, size.height, 1]}>
+    <mesh scale={[size.width, size.height, 1]} material={shaderMaterial}>
       <planeGeometry args={[1, 1]} />
-      <ShaderMaterial />
     </mesh>
   )
 }
 
 export const BackgroundCanvas: React.FC = () => {
   const updateCamera = (
-    camera: THREE.OrthographicCamera,
+    camera: OrthographicCamera,
     size: { width: number; height: number }
   ) => {
     camera.left = -size.width / 2
@@ -66,7 +62,7 @@ export const BackgroundCanvas: React.FC = () => {
             width: window.innerWidth,
             height: window.innerHeight,
           }
-          updateCamera(camera as THREE.OrthographicCamera, size)
+          updateCamera(camera as OrthographicCamera, size)
           gl.setSize(size.width, size.height)
         }
 

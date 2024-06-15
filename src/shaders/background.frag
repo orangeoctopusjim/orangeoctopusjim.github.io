@@ -1,9 +1,9 @@
-#define S smoothstep
 #define BG_COLOR vec3(0.05, 0.35, 0.75)
 #define NB_POINTS 100.0
 
 uniform float u_time;
 uniform vec2 u_resolution;
+uniform float intensity;
 
 mat2 Rot(float angle) {
   float c = cos(angle);
@@ -55,16 +55,15 @@ void main() {
   }
 
   // Voronoi color
-
   float a = sin(u_time * 0.05235);
   a = abs(a) * 0.5; // 0 / +0.5
   a *= 0.1;
 
   float b = sin(u_time * 0.1235);
   b = abs(b) * 0.5 + 0.5; // +0.5 / +1
-  b *= 3.0;
+  b *= (3.0 - 2. * intensity);
 
-  float c = S(a, b, minDist * minDist);
+  float c = smoothstep(a, b, minDist * minDist);
   col.rgb += vec3(c);
 
   // Output
