@@ -1,6 +1,8 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ShaderMaterial, Vector2, OrthographicCamera } from 'three'
+import audioWorkletScriptURL from './audioWorkletScript.js?url'
+console.log(audioWorkletScriptURL)
 
 import backgroundFrag from './shaders/background.frag'
 import vertexShader from './shaders/default.vert'
@@ -35,7 +37,16 @@ const FullscreenPlane = () => {
   )
 }
 
-export const BackgroundCanvas: React.FC = () => {
+export const BackgroundCanvas: React.FC<{ soundOn: boolean }> = ({
+  soundOn,
+}) => {
+  const audioRef = useRef<HTMLAudioElement>(null!)
+
+  useEffect(() => {
+    if (soundOn) audioRef.current.play()
+    else audioRef.current.pause()
+  }, [soundOn])
+
   const updateCamera = (
     camera: OrthographicCamera,
     size: { width: number; height: number }
@@ -48,33 +59,36 @@ export const BackgroundCanvas: React.FC = () => {
   }
 
   return (
-    <Canvas
-      orthographic
-      camera={{
-        near: -1000,
-        far: 1000,
-        position: [0, 0, 1],
-        zoom: 1,
-      }}
-      onCreated={({ gl, camera }) => {
-        const handleResize = () => {
-          const size = {
-            width: window.innerWidth,
-            height: window.innerHeight,
+    <>
+      <audio src="ladybug.m4a" ref={audioRef} loop />
+      <Canvas
+        orthographic
+        camera={{
+          near: -1000,
+          far: 1000,
+          position: [0, 0, 1],
+          zoom: 1,
+        }}
+        onCreated={({ gl, camera }) => {
+          const handleResize = () => {
+            const size = {
+              width: window.innerWidth,
+              height: window.innerHeight,
+            }
+            updateCamera(camera as OrthographicCamera, size)
+            gl.setSize(size.width, size.height)
           }
-          updateCamera(camera as OrthographicCamera, size)
-          gl.setSize(size.width, size.height)
-        }
 
-        window.addEventListener('resize', handleResize)
-        handleResize()
+          window.addEventListener('resize', handleResize)
+          handleResize()
 
-        return () => {
-          window.removeEventListener('resize', handleResize)
-        }
-      }}
-    >
-      <FullscreenPlane />
-    </Canvas>
+          return () => {
+            window.removeEventListener('resize', handleResize)
+          }
+        }}
+      >
+        <FullscreenPlane />
+      </Canvas>
+    </>
   )
 }

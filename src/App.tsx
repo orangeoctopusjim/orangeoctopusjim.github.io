@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BackgroundCanvas } from './Background'
 
 import './styles.css'
@@ -11,13 +12,15 @@ import soundcloud from './assets/icons/soundcloud.svg'
 import spotify from './assets/icons/spotify.svg'
 import youtube from './assets/icons/youtube.svg'
 
-import { MdMail } from 'react-icons/md'
+import { MdMail, MdVolumeUp, MdVolumeOff } from 'react-icons/md'
 
 function App() {
+  const [soundOn, setSoundOn] = useState(false)
+
   return (
     <div className="w-full h-full">
       <div className="w-full h-full absolute z-0 m-0">
-        <BackgroundCanvas />
+        <BackgroundCanvas soundOn={soundOn} />
       </div>
       <div className="w-full h-full flex flex-col absolute z-10">
         <header className="flex justify-center items-center h-[15%]">
@@ -37,6 +40,19 @@ function App() {
               src={jimImage}
               alt="Jim"
             />
+            <button
+              className="bg-purple-600 text-white py-2 px-4 rounded-full flex flex-row gap-2 items-center absolute"
+              style={{
+                top: '0',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+              }}
+              onClick={() => {
+                setSoundOn(!soundOn)
+              }}
+            >
+              {soundOn ? <MdVolumeOff /> : <MdVolumeUp />}
+            </button>
             <a
               href="https://music.apple.com/ca/artist/orange-octopus-jim/1722913416"
               target="_blank"
