@@ -61,7 +61,7 @@ void main() {
 
   float b = sin(u_time * 0.1235);
   b = abs(b) * 0.5 + 0.5; // +0.5 / +1
-  b *= (3.0 - 2. * intensity);
+  b *= (3.0 - 2. * clamp(intensity * 1.5, 0., 1.));
 
   float c = smoothstep(a, b, minDist * minDist);
   col.rgb += vec3(c);

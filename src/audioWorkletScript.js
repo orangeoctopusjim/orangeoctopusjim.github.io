@@ -1,6 +1,6 @@
 const QUANTUM_SIZE = 128
 
-class audioMonitor extends AudioWorkletProcessor {
+class AudioMonitor extends AudioWorkletProcessor {
   constructor() {
     super()
     this._volume = 0
@@ -60,4 +60,4 @@ class audioMonitor extends AudioWorkletProcessor {
   }
 }
 
-registerProcessor('audio-monitor', audioMonitor)
+registerProcessor('audio-monitor', AudioMonitor)
