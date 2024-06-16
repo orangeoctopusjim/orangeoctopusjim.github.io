@@ -51,7 +51,7 @@ function App() {
                 setSoundOn(!soundOn)
               }}
             >
-              {soundOn ? <MdVolumeOff /> : <MdVolumeUp />}
+              {soundOn ? <MdVolumeUp /> : <MdVolumeOff />}
             </button>
             <a
               href="https://music.apple.com/ca/artist/orange-octopus-jim/1722913416"
